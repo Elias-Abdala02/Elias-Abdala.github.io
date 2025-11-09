@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Husky Digital — Marketing para negocios locales</title>
+  <meta name="description" content="Marketing digital para restaurantes, cafés, bares y tiendas. Sitios rápidos, branding y anuncios locales." />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <!-- Tailwind (CDN) - open source -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS (Animate On Scroll) - open source -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Glass + glow */
+    .glass { backdrop-filter: blur(12px); background: rgba(255,255,255,0.85); border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 4px 6px rgba(0,0,0,0.05);}  
+    .text-gradient { 
+      background: linear-gradient(90deg,#0ea5e9, #06b6d4, #0284c7, #0ea5e9); 
+      background-size: 200% auto;
+      background-clip: text; 
+      -webkit-background-clip: text; 
+      color: transparent;
+      animation: gradient-shift 3s linear infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    /* Canvas fills hero */
+    #bg3d { position: absolute; inset: 0; width: 100%; height: 100%; display:block;}
+    /* Smooth fade-in */
+    .fade-in { opacity: 0; transform: translateY(8px); animation: fadeUp .8s ease forwards; }
+    @keyframes fadeUp { to { opacity:1; transform:none; } }
+    
+    /* Card hover animations */
+    .service-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(34, 211, 238, 0.15);
+    }
+
+    /* Interactive Hero Card */
+    .interactive-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .interactive-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(34, 211, 238, 0.25) !important;
+    }
+
+    .card-shimmer {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.15), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .card-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .card-glow {
+      animation: glow-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0_80px_rgba(34,211,238,0.15); }
+      50% { box-shadow: 0 0_120px_rgba(34,211,238,0.35); }
+    }
+
+    .card-stats {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .interactive-card:hover .card-stats {
+      opacity: 1;
+    }
+
+    .interactive-card:hover .default-text {
+      opacity: 0;
+    }
+
+    .interactive-card:hover .default-icon {
+      opacity: 0;
+    }
+
+    /* Chart Animation */
+    .chart-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 8px;
+      padding: 60px 80px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .interactive-card:hover .chart-container {
+      opacity: 1;
+    }
+
+    .chart-bar {
+      width: 40px;
+      background: linear-gradient(to top, #06b6d4, #0ea5e9);
+      border-radius: 4px 4px 0 0;
+      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+      transform-origin: bottom;
+      transform: scaleY(0);
+    }
+
+    .interactive-card:hover .chart-bar {
+      animation: grow 0.8s ease-out forwards;
+    }
+
+    .chart-bar:nth-child(1) { 
+      animation-delay: 0.1s;
+      height: 60px;
+    }
+    .chart-bar:nth-child(2) { 
+      animation-delay: 0.2s;
+      height: 90px;
+    }
+    .chart-bar:nth-child(3) { 
+      animation-delay: 0.3s;
+      height: 120px;
+    }
+    .chart-bar:nth-child(4) { 
+      animation-delay: 0.4s;
+      height: 150px;
+    }
+    .chart-bar:nth-child(5) { 
+      animation-delay: 0.5s;
+      height: 200px;
+    }
+
+    @keyframes grow {
+      from {
+        transform: scaleY(0);
+      }
+      to {
+        transform: scaleY(1);
+      }
+    }
+
+    .stat-item {
+      text-align: center;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .stat-item:nth-child(1) { animation-delay: 0s; }
+    .stat-item:nth-child(2) { animation-delay: 0.1s; }
+    .stat-item:nth-child(3) { animation-delay: 0.2s; }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pulse-ring {
+      position: absolute;
+      border: 2px solid rgba(34, 211, 238, 0.5);
+      border-radius: 50%;
+      animation: pulse-ring 2s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    /* Parallax Scrolling */
+    .parallax-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Morphing SVG Shapes */
+    .morph-shape {
+      position: absolute;
+      opacity: 0.1;
+      filter: blur(40px);
+    }
+
+    .morph-shape.shape-1 {
+      top: 10%;
+      left: 5%;
+      animation: morph1 8s ease-in-out infinite;
+    }
+
+    .morph-shape.shape-2 {
+      top: 60%;
+      right: 10%;
+      animation: morph2 10s ease-in-out infinite;
+    }
+
+    .morph-shape.shape-3 {
+      bottom: 15%;
+      left: 50%;
+      animation: morph3 12s ease-in-out infinite;
+    }
+
+    @keyframes morph1 {
+      0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+      50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: translate(50px, -30px) rotate(180deg) scale(1.1);
+      }
+    }
+
+    @keyframes morph2 {
+      0%, 100% {
+        border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+      50% {
+        border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%;
+        transform: translate(-40px, 40px) rotate(-180deg) scale(1.15);
+      }
+    }
+
+    @keyframes morph3 {
+      0%, 100% {
+        border-radius: 50% 50% 40% 60% / 40% 50% 60% 50%;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+      50% {
+        border-radius: 40% 60% 50% 50% / 60% 40% 50% 50%;
+        transform: translate(30px, -50px) rotate(90deg) scale(1.2);
+      }
+    }
+
+    /* Ripple Effect */
+    .ripple-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple-animation 0.6s ease-out;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-slate-900 antialiased">
+  <!-- HERO -->
+  <header class="relative min-h-[90vh] overflow-hidden bg-gradient-to-br from-white via-gray-50 to-cyan-50">
+    <canvas id="bg3d" aria-hidden="true"></canvas>
+    
+    <!-- Morphing SVG Shapes -->
+    <div class="morph-shape shape-1" style="width: 300px; height: 300px; background: linear-gradient(135deg, #06b6d4, #0ea5e9);"></div>
+    <div class="morph-shape shape-2" style="width: 400px; height: 400px; background: linear-gradient(135deg, #0ea5e9, #3b82f6);"></div>
+    <div class="morph-shape shape-3" style="width: 350px; height: 350px; background: linear-gradient(135deg, #06b6d4, #14b8a6);"></div>
+    
+    <div class="relative z-10 max-w-6xl mx-auto px-6 pt-20">
+      <nav class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 grid place-content-center">
+            <!-- Snowflake logo -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-cyan-600">
+              <line x1="12" y1="2" x2="12" y2="22" stroke-width="1.5"/>
+              <line x1="2" y1="12" x2="22" y2="12" stroke-width="1.5"/>
+              <line x1="5.64" y1="5.64" x2="18.36" y2="18.36" stroke-width="1.5"/>
+              <line x1="5.64" y1="18.36" x2="18.36" y2="5.64" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <circle cx="12" cy="5" r="1.5" fill="currentColor"/>
+              <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+              <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
+              <circle cx="19" cy="12" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="font-semibold tracking-wide">Husky Digital</span>
+        </div>
+        <a href="#contacto" class="ripple-btn px-4 py-2 rounded-xl glass hover:bg-white/90 transition">Contáctanos</a>
+      </nav>
+
+      <div class="mt-24 grid lg:grid-cols-2 gap-10 items-center">
+        <div class="fade-in">
+          <h1 class="text-4xl md:text-6xl font-black leading-tight">
+            Marketing digital que <span class="text-gradient">sí trae clientes</span>
+          </h1>
+          <p class="mt-5 text-slate-600 text-lg max-w-prose">
+            Sitios web veloces, anuncios hiperlocales y presencia en redes para <strong>restaurantes, cafés, bares y tiendas</strong>. 
+            Todo con tecnología abierta y sin costos ocultos.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#demo" class="ripple-btn px-5 py-3 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition shadow-md">Ver demo interactiva</a>
+            <a href="#servicios" class="ripple-btn px-5 py-3 rounded-2xl glass font-semibold hover:bg-white/90 transition">Servicios</a>
+          </div>
+          <div class="mt-6 text-xs text-slate-500">Open‑source: Tailwind, Three.js, Pyodide</div>
+        </div>
+        <div class="relative h-[420px] lg:h-[520px]">
+          <!-- Interactive Card with Animations -->
+          <div class="interactive-card absolute inset-0 rounded-3xl glass border-cyan-400/20 card-glow">
+            <!-- Shimmer effect -->
+            <div class="card-shimmer"></div>
+            
+            <!-- Pulse ring effect -->
+            <div class="pulse-ring"></div>
+            
+            <!-- Chart Animation -->
+            <div class="chart-container">
+              <div class="chart-bar"></div>
+              <div class="chart-bar"></div>
+              <div class="chart-bar"></div>
+              <div class="chart-bar"></div>
+              <div class="chart-bar"></div>
+            </div>
+            
+            <!-- Main content with float animation -->
+            <div class="card-float w-full h-full flex flex-col items-center justify-center relative z-10">
+              <!-- Icon circle -->
+              <div class="default-icon w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400/30 to-blue-500/30 border border-cyan-400/40 flex items-center justify-center mb-6 backdrop-blur-sm hover:scale-110 transition-all duration-300">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-cyan-600 animate-pulse">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-width="1.2" fill="currentColor"/>
+                </svg>
+              </div>
+              
+              <!-- Stats overlay on hover -->
+              <div class="card-stats">
+                <div class="stat-item">
+                  <div class="text-3xl font-bold text-cyan-600">+200%</div>
+                  <div class="text-xs text-slate-600">Más clientes</div>
+                </div>
+                <div class="stat-item">
+                  <div class="text-3xl font-bold text-cyan-600">48h</div>
+                  <div class="text-xs text-slate-600">Implementación</div>
+                </div>
+                <div class="stat-item">
+                  <div class="text-3xl font-bold text-cyan-600">0%</div>
+                  <div class="text-xs text-slate-600">Costos ocultos</div>
+                </div>
+              </div>
+
+              <!-- Default text -->
+              <p class="default-text text-center text-sm text-slate-600 transition-opacity">
+                <span class="text-cyan-600 font-semibold">Hover aquí</span> para ver resultados
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl md:text-4xl font-extrabold">¿Qué hacemos?</h2>
+    <p class="mt-3 text-slate-600">Paquetes ligeros, medibles y listos para crecer.</p>
+    <div class="mt-10 grid md:grid-cols-3 gap-6">
+      <article class="glass rounded-2xl p-6 service-card" data-aos="fade-up" data-aos-delay="0" data-aos-duration="600">
+        <h3 class="font-bold text-xl">Landing express</h3>
+        <p class="mt-2 text-slate-600">Una página impactante en menos de una semana. Optimizada para móviles.</p>
+        <ul class="mt-3 text-sm list-disc list-inside text-slate-500">
+          <li>SEO técnico básico</li>
+          <li>Integración WhatsApp</li>
+          <li>Analytics sin cookies</li>
+        </ul>
+      </article>
+      <article class="glass rounded-2xl p-6 service-card" data-aos="fade-up" data-aos-delay="150" data-aos-duration="600">
+        <h3 class="font-bold text-xl">Anuncios locales</h3>
+        <p class="mt-2 text-slate-600">Campañas hiperlocales para horas pico y radio de entrega.</p>
+        <ul class="mt-3 text-sm list-disc list-inside text-slate-500">
+          <li>Meta/Google Ads</li>
+          <li>Mapas de calor</li>
+          <li>Pruebas A/B</li>
+        </ul>
+      </article>
+      <article class="glass rounded-2xl p-6 service-card" data-aos="fade-up" data-aos-delay="300" data-aos-duration="600">
+        <h3 class="font-bold text-xl">Marca & redes</h3>
+        <p class="mt-2 text-slate-600">Identidad visual y calendario de contenido.</p>
+        <ul class="mt-3 text-sm list-disc list-inside text-slate-500">
+          <li>Guía de estilo</li>
+          <li>Plantillas reutilizables</li>
+          <li>Métricas accionables</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- DEMO PYTHON EN EL NAVEGADOR -->
+    <!-- DEMO PYTHON EN EL NAVEGADOR -->
+  <section id="demo" class="relative bg-white py-20 border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-extrabold">Demo: cálculo de envío inteligente</h2>
+          <p class="mt-3 text-slate-600">Este widget corre <strong>Python</strong> directamente en tu navegador con <em>Pyodide</em> (open source). Calcula costo de entrega según distancia y ticket.</p>
+          <form id="calcForm" class="mt-6 glass rounded-2xl p-6">
+            <label class="block text-sm font-medium text-slate-700">Distancia (km)</label>
+            <input id="km" type="number" min="0" step="0.1" value="3" class="mt-1 w-full rounded-xl bg-gray-100 border border-gray-200 px-3 py-2 outline-none focus:ring-2 focus:ring-cyan-500" />
+            <label class="block text-sm font-medium text-slate-700 mt-4">Ticket promedio ($ MXN)</label>
+            <input id="ticket" type="number" min="0" step="1" value="250" class="mt-1 w-full rounded-xl bg-gray-100 border border-gray-200 px-3 py-2 outline-none focus:ring-2 focus:ring-cyan-500" />
+            <button type="submit" class="ripple-btn mt-5 px-5 py-3 rounded-2xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition shadow-md">Calcular</button>
+            <pre id="out" class="mt-4 text-sm text-slate-700 whitespace-pre-wrap"></pre>
+          </form>
+        </div>
+        <div class="glass rounded-3xl p-6 border border-cyan-400/20">
+          <h3 class="font-bold text-xl">¿Qué demuestra?</h3>
+          <ul class="mt-3 space-y-2 text-slate-600">
+            <li>✅ Interactividad sin servidor (GitHub Pages).</li>
+            <li>✅ Python para lógica de negocio ligera.</li>
+            <li>✅ UI moderna con Tailwind.</li>
+            <li>✅ Background 3D con Three.js, todo open‑source.</li>
+          </ul>
+          <p class="mt-4 text-slate-500 text-sm">Puedes reemplazar la lógica por un cotizador real (por ejemplo, paquetes de <em>Hielo Husky</em> o reservas para restaurantes).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="max-w-6xl mx-auto px-6 py-24">
+    <div class="glass rounded-3xl p-8">
+      <div>
+        <h2 class="text-3xl font-extrabold text-center">Contáctanos</h2>
+        <p class="mt-3 text-slate-600 text-center">Cuéntanos tu idea y te mostramos un prototipo en días.</p>
+        <ul class="mt-6 text-slate-500 text-sm space-y-2 text-center">
+          <li>Correo: <a href="mailto:eabdalaa@outlook.com" class="underline hover:text-cyan-600">eabdalaa@outlook.com</a></li>
+          <li>WhatsApp: <a href="https://wa.me/529836?text=Hola%20Husky%20Digital" class="underline hover:text-cyan-600">+52 • WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="mt-6 text-center text-xs text-slate-400">© <span id="year"></span> Husky Digital — Hecho con software libre.</p>
+  </section>
+
+  <!-- Three.js (open source) -->
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
+    import { OrbitControls } from 'https://unpkg.com/three@0.161.0/examples/jsm/controls/OrbitControls.js';
+
+    const canvas = document.getElementById('bg3d');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 0.1, 100);
+    camera.position.set(0, 0.8, 2.2);
+
+    // Lights with cool icy tone
+    const key = new THREE.DirectionalLight(0xb3e4ff, 1.2); key.position.set(2,2,2);
+    const fill = new THREE.DirectionalLight(0x88ccff, 0.8); fill.position.set(-2,1,0);
+    const rim = new THREE.PointLight(0x66eeff, 0.8); rim.position.set(0,-1.5,1.2);
+    scene.add(key, fill, rim);
+
+    // Ice cube (box + high roughness/metalness material)
+    const geo = new THREE.BoxGeometry(1,1,1, 24,24,24);
+    const mat = new THREE.MeshPhysicalMaterial({
+      color: 0xaee9ff,
+      roughness: 0.05,
+      metalness: 0.1,
+      transmission: 0.95,
+      thickness: 0.6,
+      ior: 1.31,
+      clearcoat: 1,
+      clearcoatRoughness: 0.05
+    });
+    const cube = new THREE.Mesh(geo, mat);
+    cube.rotation.x = 0.6; cube.rotation.y = 0.7;
+    scene.add(cube);
+
+    // Particles
+    const pGeo = new THREE.BufferGeometry();
+    const count = 1200;
+    const positions = new Float32Array(count*3);
+    for (let i=0;i<count;i++){ positions[i*3+0]=(Math.random()-0.5)*8; positions[i*3+1]=(Math.random()-0.5)*6; positions[i*3+2]=(Math.random()-0.5)*8; }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+    const pMat = new THREE.PointsMaterial({ size:0.01, transparent:true, opacity:0.8 });
+    const points = new THREE.Points(pGeo, pMat);
+    scene.add(points);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 0.6;
+
+    const onResize = ()=>{ renderer.setSize(innerWidth, innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); };
+    addEventListener('resize', onResize); onResize();
+
+    const clock = new THREE.Clock();
+    (function animate(){
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      cube.rotation.y += 0.003;
+      points.rotation.y = Math.sin(t*0.1)*0.08;
+      renderer.render(scene,camera);
+    })();
+  </script>
+
+  <!-- Pyodide (Python en el navegador, open source) -->
+  <script>
+    const yearEl = document.getElementById('year'); yearEl.textContent = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.0/full/pyodide.js"></script>
+  <script>
+    let pyodideReadyPromise;
+    async function initPy(){
+      if (!pyodideReadyPromise){
+        pyodideReadyPromise = loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.0/full/' });
+      }
+      return pyodideReadyPromise;
+    }
+
+    const form = document.getElementById('calcForm');
+    const out = document.getElementById('out');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault(); 
+      out.textContent = 'Calculando…';
+      const km = parseFloat(document.getElementById('km').value || '0');
+      const ticket = parseFloat(document.getElementById('ticket').value || '0');
+
+      try {
+        const py = await initPy();
+        const kmVal = km;
+        const ticketVal = ticket;
+        const code = `
+def costo_envio(km, ticket):
+    base = 20.0
+    tramo = 10.0
+    desc = 0.0
+    if ticket >= 500:
+        desc = 8.0
+    elif ticket >= 300:
+        desc = 4.0
+    costo = base + max(0.0, km-2.0)*tramo - desc
+    return round(max(0.0, costo), 2)
+
+km = ${kmVal}
+ticket = ${ticketVal}
+c = costo_envio(km, ticket)
+msg = "Distancia: " + str(km) + " km\\nTicket: $" + str(int(ticket)) + " MXN\\n\\nCosto sugerido de envio: $" + str(c) + " MXN\\n\\nNota: logica de ejemplo - reemplaza reglas segun tu negocio."
+`;
+        await py.runPythonAsync(code);
+        const msg = py.globals.get('msg');
+        out.textContent = msg;
+      } catch(err){
+        out.textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out-quad',
+      once: true,
+      offset: 100
+    });
+  </script>
+
+  <!-- Ripple Effect Script -->
+  <script>
+    document.querySelectorAll('.ripple-btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+  </script>
+
+  <!-- Parallax Scrolling Script -->
+  <script>
+    const canvas3d = document.getElementById('bg3d');
+    const morphShapes = document.querySelectorAll('.morph-shape');
+    
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * 0.5;
+      
+      // Parallax for 3D canvas
+      if (canvas3d && scrolled < window.innerHeight) {
+        canvas3d.style.transform = `translateY(${rate}px)`;
+      }
+      
+      // Parallax for morph shapes
+      morphShapes.forEach((shape, index) => {
+        const speed = 0.3 + (index * 0.1);
+        shape.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+  </script>
+</body>
+</html>
