@@ -7,7 +7,7 @@ Landing page moderna y completamente interactiva para **Husky Digital**, una age
 
 ## 🌐 Demo en Vivo
 
-**[Ver sitio web →](https://elias-abdala02.github.io/)**
+**[Ver sitio web →](https://elias-abdala02.github.io/Elias-Abdala.github.io/)**
 
 ## ✨ Características
 
