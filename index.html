@@ -60,6 +60,32 @@
       box-shadow: 0 30px 60px rgba(34, 211, 238, 0.25) !important;
     }
 
+    /* Touch active state (simulates hover on touch devices) */
+    .interactive-card.touch-active {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(34, 211, 238, 0.25) !important;
+    }
+
+    .interactive-card.touch-active .card-stats {
+      opacity: 1;
+    }
+
+    .interactive-card.touch-active .default-text {
+      opacity: 0;
+    }
+
+    .interactive-card.touch-active .default-icon {
+      opacity: 0;
+    }
+
+    .interactive-card.touch-active .chart-container {
+      opacity: 1;
+    }
+
+    .interactive-card.touch-active .chart-bar {
+      animation: grow 0.8s ease-out forwards;
+    }
+
     .card-shimmer {
       position: absolute;
       top: 0;
@@ -665,6 +691,47 @@ msg = "Distancia: " + str(km) + " km\\nTicket: $" + str(int(ticket)) + " MXN\\n\
         shape.style.transform = `translateY(${scrolled * speed}px)`;
       });
     });
+  </script>
+
+  <!-- Touch Support for Interactive Card -->
+  <script>
+    const interactiveCard = document.querySelector('.interactive-card');
+    let isActive = false;
+
+    if (interactiveCard) {
+      // Touch support
+      interactiveCard.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        isActive = !isActive;
+        
+        if (isActive) {
+          this.classList.add('touch-active');
+        } else {
+          this.classList.remove('touch-active');
+        }
+      });
+
+      // Click support for desktop
+      interactiveCard.addEventListener('click', function(e) {
+        if (!('ontouchstart' in window)) {
+          isActive = !isActive;
+          
+          if (isActive) {
+            this.classList.add('touch-active');
+          } else {
+            this.classList.remove('touch-active');
+          }
+        }
+      });
+
+      // Remove active state when clicking outside
+      document.addEventListener('touchstart', function(e) {
+        if (!interactiveCard.contains(e.target) && isActive) {
+          isActive = false;
+          interactiveCard.classList.remove('touch-active');
+        }
+      });
+    }
   </script>
 </body>
 </html>
