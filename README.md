@@ -12,6 +12,7 @@ Landing page moderna y completamente interactiva para **Husky Digital**, una age
 ## ✨ Características
 
 ### 🎨 Diseño y Animaciones
+
 - **Esquema de colores claro** con tonos cyan/azul profesionales
 - **Smooth scroll** para navegación fluida
 - **AOS (Animate On Scroll)** para animaciones al hacer scroll
@@ -22,6 +23,7 @@ Landing page moderna y completamente interactiva para **Husky Digital**, una age
 - **Gradiente animado** en texto principal
 
 ### 🎯 Secciones
+
 1. **Hero** - Con tarjeta interactiva que muestra estadísticas al hacer hover
 2. **Servicios** - 3 tarjetas animadas (Landing express, Anuncios locales, Marca & redes)
 3. **Demo Python** - Calculadora de envío interactiva usando Pyodide
@@ -30,12 +32,14 @@ Landing page moderna y completamente interactiva para **Husky Digital**, una age
 ### 🛠️ Tecnologías Utilizadas
 
 #### Open Source Stack
+
 - **[Tailwind CSS](https://tailwindcss.com/)** - Framework CSS via CDN
 - **[Three.js](https://threejs.org/)** - Gráficos 3D para el fondo del hero
 - **[Pyodide](https://pyodide.org/)** - Python en el navegador para la demo interactiva
 - **[AOS](https://michalsnik.github.io/aos/)** - Animate On Scroll library
 
 #### Características Técnicas
+
 - ✅ 100% HTML/CSS/JavaScript vanilla
 - ✅ No requiere compilación ni build
 - ✅ Responsive design (mobile-first)
@@ -47,6 +51,7 @@ Landing page moderna y completamente interactiva para **Husky Digital**, una age
 Este sitio está desplegado automáticamente en **GitHub Pages**.
 
 ### Configuración de GitHub Pages
+
 1. Ve a **Settings** → **Pages**
 2. Source: **Deploy from a branch**
 3. Branch: **main** → **/root**
@@ -56,7 +61,7 @@ El sitio se actualiza automáticamente con cada push a la rama `main`.
 
 ## 📁 Estructura del Proyecto
 
-```
+```text
 .
 ├── index.html          # Página principal (todo en uno)
 └── README.md          # Este archivo
@@ -65,18 +70,21 @@ El sitio se actualiza automáticamente con cada push a la rama `main`.
 ## 🎯 Características Interactivas
 
 ### Tarjeta Hero Interactiva
+
 - **Estado normal**: Muestra estrella con mensaje "Hover aquí para ver resultados"
-- **Al hacer hover**: 
+- **Al hacer hover**:
   - Gráfica de barras animada con crecimiento progresivo
   - Estadísticas: +200% clientes, 48h implementación, 0% costos ocultos
   - Efecto de elevación y glow
 
 ### Demo de Python
+
 - Ejecuta Python directamente en el navegador
 - Calcula costo de envío basado en distancia y ticket
 - Interfaz con inputs responsivos y feedback en tiempo real
 
 ### Efectos Visuales
+
 - **Shimmer**: Destello que recorre elementos periódicamente
 - **Float**: Elementos que suben y bajan suavemente
 - **Pulse**: Anillo expansivo tipo radar
@@ -116,16 +124,20 @@ python3 -m http.server 8000
 ## 📝 Personalización
 
 ### Cambiar información de contacto
+
 Busca en `index.html`:
+
 ```html
 <a href="mailto:eabdalaa@outlook.com">
 <a href="https://wa.me/529836?text=Hola%20Husky%20Digital">
 ```
 
 ### Modificar colores
+
 Edita las clases de Tailwind o los estilos CSS personalizados en `<style>`.
 
 ### Ajustar animaciones
+
 Modifica los `@keyframes` en la sección de estilos.
 
 ## 🤝 Contribuciones
@@ -138,9 +150,10 @@ Este proyecto está bajo la Licencia MIT.
 
 ## 👤 Autor
 
-**Elias Abdala**
+### Elias Abdala
+
 - GitHub: [@Elias-Abdala02](https://github.com/Elias-Abdala02)
-- Email: eabdalaa@outlook.com
+- Email: [eabdalaa@outlook.com](mailto:eabdalaa@outlook.com)
 
 ---
 
